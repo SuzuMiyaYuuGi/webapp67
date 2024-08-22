@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมัครสมาชิกผู้ใช้งาน</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="container">
+        <h1>สมัครสมาชิกผู้ใช้งาน</h1>
+        <form id="register-form">
+            <fieldset>
+                <legend>1. ข้อมูลส่วนตัว</legend>
+                <div class="form-group">
+                    <label for="new-username">ชื่อผู้ใช้:</label>
+                    <input type="text" id="new-username" name="new-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">ชื่อ-นามสกุล:</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">เบอร์โทร:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">อีเมล์:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">รหัสผ่าน:</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>2. ที่อยู่ปัจจุบัน</legend>
+                <div class="form-group">
+                    <label for="address">บ้านเลขที่:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="province">จังหวัด:</label>
+                    <select id="province" name="province" required onchange="populateDistricts()">
+                        <option value="" disabled selected>เลือกจังหวัด</option>
+                        <option value="bangkok">กรุงเทพมหานคร</option>
+                        <option value="chiangmai">เชียงใหม่</option>
+                        <option value="chonburi">ชลบุรี</option>
+                        <!-- เพิ่มจังหวัดตามต้องการ -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="district">อำเภอ:</label>
+                    <select id="district" name="district" required onchange="populateSubdistricts()">
+                        <option value="" disabled selected>เลือกอำเภอ</option>
+                        <!-- อำเภอจะถูกเพิ่มโดย JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subdistrict">ตำบล:</label>
+                    <select id="subdistrict" name="subdistrict" required>
+                        <option value="" disabled selected>เลือกตำบล</option>
+                        <!-- ตำบลจะถูกเพิ่มโดย JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">รหัสไปรษณีย์:</label>
+                    <input type="text" id="zipcode" name="zipcode" required>
+                </div>
+                <div class="form-group">
+                    <label for="additional-address">รายละเอียดที่อยู่:</label>
+                    <input type="text" id="additional-address" name="additional-address">
+                </div>
+                <div class="form-group">
+                    <label for="profile-picture">อัพโหลดรูปโปรไฟล์:</label>
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="submit">สมัครสมาชิก</button>
+                <button type="reset">ยกเลิก</button>
+            </div>
+        </form>
+        <div id="register-error" class="popup error">ชื่อผู้ใช้นี้มีอยู่ในระบบแล้ว</div>
+        <div id="register-success" class="popup success">สมัครสมาชิกสำเร็จ! กำลังเปลี่ยนไปยังหน้าล็อกอิน...</div>
+    </div>
+
+    <script>
+        // ตัวเลือกข้อมูลอำเภอสำหรับแต่ละจังหวัด
+        const districts = {
+            bangkok: ["เขตพระนคร", "เขตดุสิต", "เขตหนองจอก"],
+            chiangmai: ["อำเภอเมืองเชียงใหม่", "อำเภอฝาง", "อำเภอแม่ริม"],
+            chonburi: ["อำเภอเมืองชลบุรี", "อำเภอบางละมุง", "อำเภอศรีราชา"]
+        };
+
+        // ตัวเลือกข้อมูลตำบลสำหรับแต่ละอำเภอ
+        const subdistricts = {
+            "เขตพระนคร": ["ตำบลบางขุนพรหม", "ตำบลบางลำพู"],
+            "เขตดุสิต": ["ตำบลดุสิต", "ตำบลนครไชยศรี"],
+            "เขตหนองจอก": ["ตำบลหนองจอก", "ตำบลลำผักชี"],
+            "อำเภอเมืองเชียงใหม่": ["ตำบลพระสิงห์", "ตำบลสุเทพ"],
+            "อำเภอฝาง": ["ตำบลแม่สูน", "ตำบลเวียง"],
+            "อำเภอแม่ริม": ["ตำบลแม่ริม", "ตำบลโป่งแยง"],
+            "อำเภอเมืองชลบุรี": ["ตำบลบ้านสวน", "ตำบลนาป่า"],
+            "อำเภอบางละมุง": ["ตำบลนาเกลือ", "ตำบลห้วยใหญ่"],
+            "อำเภอศรีราชา": ["ตำบลศรีราชา", "ตำบลบางพระ"]
+        };
+
+        // ฟังก์ชันสำหรับเติมตัวเลือกอำเภอตามจังหวัดที่เลือก
+        function populateDistricts() {
+            const provinceSelect = document.getElementById("province");
+            const districtSelect = document.getElementById("district");
+            const selectedProvince = provinceSelect.value;
+
+            districtSelect.innerHTML = '<option value="" disabled selected>เลือกอำเภอ</option>';
+
+            if (districts[selectedProvince]) {
+                districts[selectedProvince].forEach(function(district) {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.text = district;
+                    districtSelect.add(option);
+                });
+            }
+        }
+
+        // ฟังก์ชันสำหรับเติมตัวเลือกตำบลตามอำเภอที่เลือก
+        function populateSubdistricts() {
+            const districtSelect = document.getElementById("district");
+            const subdistrictSelect = document.getElementById("subdistrict");
+            const selectedDistrict = districtSelect.value;
+
+            subdistrictSelect.innerHTML = '<option value="" disabled selected>เลือกตำบล</option>';
+
+            if (subdistricts[selectedDistrict]) {
+                subdistricts[selectedDistrict].forEach(function(subdistrict) {
+                    const option = document.createElement("option");
+                    option.value = subdistrict;
+                    option.text = subdistrict;
+                    subdistrictSelect.add(option);
+                });
+            }
+        }
+
+        // ฟังก์ชันสำหรับจัดการการสมัครสมาชิก
+        // ฟังก์ชันสำหรับจัดการการสมัครสมาชิก
+document.getElementById('register-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+
+    const username = document.getElementById('new-username').value;
+    const fullname = document.getElementById('lastname').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('new-password').value;
+    const address = document.getElementById('address').value;
+    const province = document.getElementById('province').value;
+    const district = document.getElementById('district').value;
+    const subdistrict = document.getElementById('subdistrict').value;
+    const zipcode = document.getElementById('zipcode').value;
+    const additionalAddress = document.getElementById('additional-address').value;
+
+    // ตรวจสอบการซ้ำของชื่อผู้ใช้ใน localStorage
+    if (localStorage.getItem(username)) {
+        document.getElementById('register-error').style.display = 'block'; // แสดงข้อความแสดงความผิดพลาด
+        document.getElementById('register-success').style.display = 'none'; // ซ่อนข้อความสำเร็จ
+    } else {
+        // บันทึกข้อมูลผู้ใช้ทั้งหมดใน localStorage
+        localStorage.setItem(username, password); // บันทึกรหัสผ่าน
+        localStorage.setItem(username + '_fullname', fullname);
+        localStorage.setItem(username + '_phone', phone);
+        localStorage.setItem(username + '_email', email);
+        localStorage.setItem(username + '_address', address);
+        localStorage.setItem(username + '_province', province);
+        localStorage.setItem(username + '_district', district);
+        localStorage.setItem(username + '_subdistrict', subdistrict);
+        localStorage.setItem(username + '_zipcode', zipcode);
+        localStorage.setItem(username + '_additionalAddress', additionalAddress);
+
+        // การจัดการกับรูปโปรไฟล์ (หากคุณต้องการเก็บ)
+        const profilePicture = document.getElementById('profile-picture').files[0];
+        if (profilePicture) {
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                localStorage.setItem(username + '_profilePicture', reader.result);
+            };
+            reader.readAsDataURL(profilePicture); // อ่านไฟล์เป็น base64
+        }
+
+        document.getElementById('register-error').style.display = 'none'; // ซ่อนข้อความแสดงความผิดพลาด
+        document.getElementById('register-success').style.display = 'block'; // แสดงข้อความสำเร็จ
+        setTimeout(function() {
+            window.location.href = "login.html"; // เปลี่ยนไปหน้าล็อกอินหลังจาก 2 วินาที
+        }, 2000);
+    }
+});
+
+    </script>
+</body>
+</html>

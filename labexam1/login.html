@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ - ระบบจัดการแม่บ้าน</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h1>เข้าสู่ระบบผู้ใช้</h1>
+        <img src="user.png">
+        <form id="login-form">
+            <label for="username">ชื่อผู้ใช้:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">รหัสผ่าน:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">เข้าสู่ระบบ</button>
+        </form>
+        <p>ยังไม่มีบัญชี? <a href="register.html">ลงทะเบียน</a></p>
+    </div>
+
+    <!-- ป๊อปอัพสำเร็จ -->
+    <div id="success-popup" class="popup success">
+        <p>เข้าสู่ระบบสำเร็จ!</p>
+        <button onclick="closePopup('success-popup')">ปิด</button>
+    </div>
+
+    <!-- ป๊อปอัพความผิดพลาด -->
+    <div id="error-popup" class="popup error">
+        <p>ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</p>
+        <button onclick="closePopup('error-popup')">ปิด</button>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // ตรวจสอบชื่อผู้ใช้และรหัสผ่านจาก localStorage
+            const storedPassword = localStorage.getItem(username);
+
+            if (storedPassword && storedPassword === password) {
+                document.getElementById('success-popup').classList.add('active');
+                setTimeout(() => {
+                    window.location.href = "home.html"; // ถ้าสำเร็จ ไปที่หน้าบริการ
+                }, 1500); // หน้าจะเปลี่ยนหลังจาก 1.5 วินาที
+            } else {
+                document.getElementById('error-popup').classList.add('active'); // แสดงป๊อปอัพความผิดพลาด
+            }
+        });
+
+        function closePopup(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

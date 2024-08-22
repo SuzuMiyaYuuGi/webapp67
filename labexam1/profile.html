@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อมูลส่วนตัว</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <img src="pro.png" alt="รูปโปรไฟล์" id="profile-picture-display"> 
+            <h2>ข้อมูลส่วนตัว</h2>
+            <div class="form-group">
+                <label for="username">ชื่อผู้ใช้:</label>
+                <span id="username-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="fullname">ชื่อ-นามสกุล:</label>
+                <span id="fullname-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="phone">เบอร์โทร:</label>
+                <span id="phone-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="email">อีเมล:</label>
+                <span id="email-display"></span> 
+            </div>
+        </div>
+
+        <div class="address-section">
+            <h2>ที่อยู่</h2>
+            <div class="form-group">
+                <label for="address">บ้านเลขที่:</label>
+                <span id="address-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="province">จังหวัด:</label>
+                <span id="province-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="district">อำเภอ:</label>
+                <span id="district-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="subdistrict">ตำบล:</label>
+                <span id="subdistrict-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="zipcode">รหัสไปรษณีย์:</label>
+                <span id="zipcode-display"></span> 
+            </div>
+            <div class="form-group">
+                <label for="additional-address">รายละเอียดที่อยู่:</label>
+                <span id="additional-address-display"></span> 
+            </div>
+            <button id="edit-button">แก้ไข</button> 
+        </div>
+    </div>
+
+    <script>
+        // ดึงข้อมูลผู้ใช้จาก localStorage
+        const username = localStorage.getItem('loggedInUser');
+        if (username) {
+            const userData = {
+                username: username,
+                fullname: localStorage.getItem(username + '_fullname'),
+                phone: localStorage.getItem(username + '_phone'),
+                email: localStorage.getItem(username + '_email'),
+                address: localStorage.getItem(username + '_address'),
+                province: localStorage.getItem(username + '_province'),
+                district: localStorage.getItem(username + '_district'),
+                subdistrict: localStorage.getItem(username + '_subdistrict'),
+                zipcode: localStorage.getItem(username + '_zipcode'),
+                additionalAddress: localStorage.getItem(username + '_additionalAddress'),
+                profilePicture: localStorage.getItem(username + '_profilePicture'), // เพิ่มการดึงรูปโปรไฟล์
+            };
+
+            // แสดงข้อมูลในส่วนต่าง ๆ ของหน้า
+            document.getElementById('username-display').textContent = userData.username;
+            document.getElementById('fullname-display').textContent = userData.fullname;
+            document.getElementById('phone-display').textContent = userData.phone;
+            document.getElementById('email-display').textContent = userData.email;
+            document.getElementById('address-display').textContent = userData.address;
+            document.getElementById('province-display').textContent = userData.province;
+            document.getElementById('district-display').textContent = userData.district;
+            document.getElementById('subdistrict-display').textContent = userData.subdistrict;
+            document.getElementById('zipcode-display').textContent = userData.zipcode;
+            document.getElementById('additional-address-display').textContent = userData.additionalAddress;
+
+            // แสดงรูปโปรไฟล์ (ถ้ามี)
+            if (userData.profilePicture) {
+                document.getElementById('profile-picture-display').src = userData.profilePicture;
+            }
+
+        } else {
+            alert("กรุณาเข้าสู่ระบบเพื่อดูข้อมูลส่วนตัว"); 
+        }
+    </script>
+</body>
+</html>
