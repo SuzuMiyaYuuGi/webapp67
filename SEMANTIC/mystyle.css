@@ -1,0 +1,50 @@
+.sec01{
+    border: 1px solid salmon
+}
+
+.sec01 h1{
+    color: blue;
+}
+
+.sec01{
+    font-family: 'Courier New', Courier, monospace;
+    color: red;
+}
+.atc01{
+    border: 2px dotted greenyellow;
+    font-size: 2rem;
+    color: blueviolet;
+    background: url(./wr.jpg);
+}
+
+.atc02{
+    border: 2px dotted greenyellow;
+    font-size: 2rem;
+    color: blueviolet;
+    background: url(./wr.jpg);
+}
+
+nav{
+    background-color: bisque;
+    border: 1px solid blue;
+    color: orange;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4rem;
+    align-items: centers;
+}
+
+ul.menu{
+    display: flex;
+    color: chocolate;
+}
+
+ul.menu a{
+    text-decoration: none;
+
+}
+
+.ft01{
+    margin: 10rem;
+}
