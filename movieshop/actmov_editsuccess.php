@@ -9,7 +9,7 @@
 <body>
         <?php
             require 'conn.php';
-            $sql_update="UPDATE actormovie SET Act_Name='$_POST[Act_Name]',Act_LastName='$_POST[Act_LastName]' ,MovieName='$_POST[Movie_Name]' WHERE Act_ID='$_POST[Act_ID] ,Movie_ID='$_POST[Movie_ID]' ";
+            $sql_update="UPDATE actormovie SET Act_Name='$_POST[Act_Name]',Act_LastName='$_POST[Act_LastName]' ,Movie_Name='$_POST[Movie_Name]' WHERE Act_ID='$_POST[Act_ID]' ";
             $result= $conn->query($sql_update);
 
             if(!$result) {
