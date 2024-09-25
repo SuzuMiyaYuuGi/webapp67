@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("bg.jpg");
+    background-size: cover; /* ครอบคลุมทั้งพื้นที่ */
+    background-position: center; /* จัดกลาง */
+    font-family: Arial, sans-serif;
+    background-color: #1f2836;
+    color: #333; /* สีเทาเข้ม เพื่อความคมชัด */
+    margin-top: auto;
+    text-align: center;
+    margin: 20px;
+}
+
+body , h1{
+    color: #1a1a1a;
+
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+tr, td {
+    border: 1px solid #ddd; /* สีเทาอ่อน เพื่อแบ่งส่วน */
+    padding: auto;
+    font-family: 'Roboto', sans-serif;
+    color: #1f2836;
+}
+
+thead, tr, th{
+    color: #ddd;
+}
+
+td{
+    transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงแบบค่อยเป็นค่อยไป */
+    height: 90px;
+}
+
+td :hover{
+    background-color: #ffdb11;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+thead{
+    background-color: #7f4ca5;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    color: #fff;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    height: 40px;
+}
+
+
+table {
+    border-collapse: collapse; /* ทำให้เส้นขอบตารางดูเรียบเนียน */
+    width: 99%; /* กำหนดความกว้างของตาราง */
+    height: 80%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาให้ตารางดูมีมิติ */
+    align-items: center;
+    border-color: #333;
+    background-color: #F5F5F5;
+}
+
+button,input {
+    background-color: #ffda33; /* สีเขียวของ Material Design */
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงแบบค่อยเป็นค่อยไป */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+        background-color: #ffdb11;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px); /* ยกปุ่มขึ้นเล็กน้อยเมื่อ hover */
+    }
+}
+
+:root {
+    --primary-color: #fadc34;
+    --secondary-color: #ffffff;
+}
+
+button {
+    box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.2);
+    height: 50px;
+    width: 100px;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Adjust as needed */
+    margin-top: 20px; /* Adjust top margin */
+  }
